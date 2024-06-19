@@ -1,5 +1,20 @@
 <script setup>
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import SecondaryButton from "@/Components/SecondaryButton.vue";
+import {usePage} from "@inertiajs/vue3";
+
+const page = usePage();
+
+async function openOrShutDoor() {
+
+    const response = await axios.get(route('garage-door'), {
+        headers: { 'X-CSRF-TOKEN': `${page.props.auth.csrf_token}` }
+    });
+    console.log(response);
+
+}
+
+
 </script>
 
 <template>
@@ -26,12 +41,15 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
                     </svg>
                     <h2 class="ms-3 text-xl font-semibold text-gray-900">
-                        <a href="https://laravel.com/docs">Documentation</a>
+                        Garage
                     </h2>
                 </div>
 
                 <p class="mt-4 text-gray-500 text-sm leading-relaxed">
-                    Laravel has wonderful documentation covering every aspect of the framework. Whether you're new to the framework or have previous experience, we recommend reading all of the documentation from beginning to end.
+                    <SecondaryButton class="mt-2 me-2" type="button" @click.prevent="openOrShutDoor">
+                        Door
+                    </SecondaryButton>
+                    Open or close the garage door using this button.
                 </p>
 
                 <p class="mt-4 text-sm">
