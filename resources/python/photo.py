@@ -11,7 +11,7 @@ time.sleep(2)
 picam2.stop_preview()
 picam2.start_preview()
 
-picam2.capture_file("../../public/garage.jpg")
+picam2.capture_file("./public/garage.jpg")
 
 picam2.stop_preview()
 picam2.stop()
