@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Process;
 
 class TakeGaragePhoto extends Command
@@ -26,6 +27,12 @@ class TakeGaragePhoto extends Command
      */
     public function handle()
     {
-        Process::run('python ' . resource_path('python/photo.py'));
+        $result = Process::run('python ' . resource_path('python/photo.py'));
+        if ($result->failed()) {
+            Log::error("Failed while capturing garage photo. " . $result->errorOutput());
+        }
+        else {
+            Log::info("Captured garage photo");
+        }
     }
 }
